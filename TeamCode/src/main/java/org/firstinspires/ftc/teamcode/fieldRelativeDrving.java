@@ -17,6 +17,10 @@ public class fieldRelativeDrving extends LinearOpMode {
     private DcMotor leftRear;
     private DcMotor rightRear;
     private DcMotor intake;
+    private DcMotor shooter;
+
+    //toggles
+    boolean shooterActive = false;
 
     // REV Hub IMU
     private IMU imu;
@@ -30,6 +34,7 @@ public class fieldRelativeDrving extends LinearOpMode {
         leftRear = hardwareMap.get(DcMotor.class, "leftRear");
         rightRear = hardwareMap.get(DcMotor.class, "rightRear");
         intake = hardwareMap.get(DcMotor.class, "intake");
+        shooter = hardwareMap.get(DcMotor.class, "shooter");
 
         // Get IMU
         imu = hardwareMap.get(IMU.class, "imu");
@@ -195,6 +200,17 @@ public class fieldRelativeDrving extends LinearOpMode {
 
             if (gamepad1.b){
                 intake.setPower(-1);
+            }
+
+            if (gamepad1.right_bumper){
+              if(shooterActive){
+                shooterActive = false;
+                shooter.setPower(0);
+                }
+              else{
+                shooterActive = true;
+                shooter.setPower(1);
+              }
             }
         }
     }
