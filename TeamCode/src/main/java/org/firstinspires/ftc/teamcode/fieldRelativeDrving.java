@@ -28,11 +28,10 @@ public class fieldRelativeDrving extends LinearOpMode {
         
     //buttonstates
     boolean lastIntakeBind = false;
-    boolean lastreverseBind = false;
 
     //debouncetimes
-
     int buttonDebounceTime = 200;
+
     private ElapsedTime intakeBindDebounce = new ElapsedTime();
     private ElapsedTime reverseBindDebounce = new ElapsedTime();
     
@@ -105,7 +104,7 @@ public class fieldRelativeDrving extends LinearOpMode {
             double uptoyouSpeed = gamepad2.left_trigger;
             double shooterSpeed = gamepad2.right_trigger;
             boolean intakeBind = gamepad2.y;
-            boolean reverseIntakeBind = gamepad2.b;
+            boolean projectileVomitBind = gamepad2.b;
 
             if (gamepad1.a) {
                 imu.resetYaw();
@@ -222,8 +221,10 @@ public class fieldRelativeDrving extends LinearOpMode {
                 intake.setPower(0);
             }
 
-            if (reverseIntakeBind){
+            if (projectileVomitBind){
                 intake.setPower(-1);
+                shooter.setPower(-1);
+                uptoyouspeed.setPower(-1);
             }
 
             uptoyou.setPower(uptoyouSpeed);
