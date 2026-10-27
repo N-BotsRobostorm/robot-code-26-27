@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -18,10 +20,23 @@ public class fieldRelativeDrving extends LinearOpMode {
     private DcMotor rightRear;
     private DcMotor intake;
     private DcMotor shooter;
+    private CRServo uptoyou;
 
-    //toggles
+    //toggles and speed
     boolean shooterActive = false;
+    boolean intakeActive = false;
+        
+    //buttonstates
+    boolean lastIntakeBind = false;
+    boolean lastreverseBind = false;
 
+    //debouncetimes
+
+    int buttonDebounceTime = 200;
+    private ElapsedTime intakeBindDebounce = new ElapsedTime();
+    private ElapsedTime reverseBindDebounce = new ElapsedTime();
+    
+    
     // REV Hub IMU
     private IMU imu;
 
@@ -35,6 +50,7 @@ public class fieldRelativeDrving extends LinearOpMode {
         rightRear = hardwareMap.get(DcMotor.class, "rightRear");
         intake = hardwareMap.get(DcMotor.class, "intake");
         shooter = hardwareMap.get(DcMotor.class, "shooter");
+        uptoyou = hardwareMap.get(CRServo.class, "uptoyou");
 
         // Get IMU
         imu = hardwareMap.get(IMU.class, "imu");
@@ -84,6 +100,12 @@ public class fieldRelativeDrving extends LinearOpMode {
         imu.resetYaw();
 
         while (opModeIsActive()) {
+                
+            //keybinds
+            double uptoyouSpeed = gamepad2.left_trigger;
+            double shooterSpeed = gamepad2.right_trigger;
+            boolean intakeBind = gamepad2.y;
+            boolean reverseIntakeBind = gamepad2.b;
 
             if (gamepad1.a) {
                 imu.resetYaw();
@@ -189,29 +211,23 @@ public class fieldRelativeDrving extends LinearOpMode {
             telemetry.addData("BR", "%.2f", backRightPower);
 
             telemetry.update();
-
-            if (gamepad1.y){
-                intake.setPower(1);
+            if (intakeBind && !lastIntakeBind && intakeBindDebounce.milliseconds() > buttonDebounceTime){
+                    intakeActive = !intakeActive;
+                    intakeBindDebounce.reset();
             }
 
-            if (gamepad1.x){
+            if (intakeActive){
+                intake.setPower(1);
+            } else {
                 intake.setPower(0);
             }
 
-            if (gamepad1.b){
+            if (reverseIntakeBind){
                 intake.setPower(-1);
             }
 
-            if (gamepad1.right_bumper){
-              if(shooterActive){
-                shooterActive = false;
-                shooter.setPower(0);
-                }
-              else{
-                shooterActive = true;
-                shooter.setPower(1);
-              }
-            }
+            uptoyou.setPower(uptoyouSpeed);
+            shooter.setPower(shooterSpeed);
         }
     }
 }
