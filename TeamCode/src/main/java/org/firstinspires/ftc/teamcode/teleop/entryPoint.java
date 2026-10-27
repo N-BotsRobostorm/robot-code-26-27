@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(name = "Field Relative Driving", group = "TeleOp")
-public class fieldRelativeDrving extends LinearOpMode {
+@TeleOp(name = "mainEntryPoint", group = "TeleOp")
+public class entryPoint extends LinearOpMode {
 
     // Drive motors
     private DcMotor leftFront;
@@ -223,8 +223,7 @@ public class fieldRelativeDrving extends LinearOpMode {
 
             if (projectileVomitBind){
                 intake.setPower(-1);
-                shooter.setPower(-1);
-                uptoyouspeed.setPower(-1);
+                uptoyou.setPower(-1);
             }
 
             uptoyou.setPower(uptoyouSpeed);
