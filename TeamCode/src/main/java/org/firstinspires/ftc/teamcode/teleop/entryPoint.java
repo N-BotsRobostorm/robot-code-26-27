@@ -24,16 +24,22 @@ public class entryPoint extends LinearOpMode {
 
     //toggles and speed
     boolean shooterActive = false;
+    boolean uptoyouActive = false;
     boolean intakeActive = false;
         
     //buttonstates
     boolean lastIntakeBind = false;
+    boolean lastPowerUpBind = false;
+    boolean lastPowerDownBind = false;
 
     //debouncetimes
     int buttonDebounceTime = 200;
+    int powerDebounceTime = 1000;
 
     private ElapsedTime intakeBindDebounce = new ElapsedTime();
-    private ElapsedTime reverseBindDebounce = new ElapsedTime();
+    private ElapsedTime shooterDebounce = new ElapsedTime();
+    private ElapsedTime uptoyouDebounce = new ElapsedTime();
+    private ElapsedTime dpadDebounce = new ElapsedTime();
     
     
     // REV Hub IMU
@@ -93,6 +99,8 @@ public class entryPoint extends LinearOpMode {
         telemetry.addLine("Press PLAY to start");
         telemetry.update();
 
+        double shooterSpeedMultiplier = 0.655;
+        
         waitForStart();
 
         // Reset the robot's current heading to 0 degrees
@@ -101,9 +109,11 @@ public class entryPoint extends LinearOpMode {
         while (opModeIsActive()) {
                 
             //keybinds
-            double uptoyouSpeed = gamepad2.left_trigger;
-            double shooterSpeed = gamepad2.right_trigger;
+            boolean uptoyouBind = gamepad2.left_trigger >= 0.3;
+            boolean shooterBind = gamepad2.right_trigger >= 0.3;
             boolean intakeBind = gamepad2.y;
+            boolean powerDownDpad = gamepad2.dpad_down;
+            boolean powerUpDpad = gamepad2.dpad_up;
             boolean projectileVomitBind = gamepad2.b;
 
             if (gamepad1.a) {
@@ -208,11 +218,26 @@ public class entryPoint extends LinearOpMode {
             telemetry.addData("FR", "%.2f", frontRightPower);
             telemetry.addData("BL", "%.2f", backLeftPower);
             telemetry.addData("BR", "%.2f", backRightPower);
+            telemetry.addData("Shooter Power: ", shooterSpeedMultiplier * 100);
 
             telemetry.update();
             if (intakeBind && !lastIntakeBind && intakeBindDebounce.milliseconds() > buttonDebounceTime){
                     intakeActive = !intakeActive;
                     intakeBindDebounce.reset();
+            }
+
+            if (powerDownDpad || powerUpDpad && dpadDebounce.milliseconds() > buttonDebounceTime){
+              if (powerDownDpad) {shooterSpeedMultiplier += 0.005;}
+              if (powerUpDpad) {shooterSpeedMultiplier -= 0.005;}
+            }
+            if (shooterBind && shooterDebounce.milliseconds() > buttonDebounceTime){
+              shooterActive = !shooterActive;
+              shooterDebounce.reset();
+            }
+
+            if (uptoyouBind && uptoyouDebounce.milliseconds() > buttonDebounceTime){
+              uptoyouActive = !uptoyouActive;
+              uptoyouDebounce.reset();
             }
 
             if (intakeActive){
@@ -221,13 +246,21 @@ public class entryPoint extends LinearOpMode {
                 intake.setPower(0);
             }
 
+            if (shooterActive){
+              shooter.setPower(1 * shooterSpeedMultiplier);
+            } else{
+              shooter.setPower(0);
+            }
+
+            if (uptoyouActive){
+              uptoyou.setPower(1);
+            } else {uptoyou.setPower(0);}
+            
             if (projectileVomitBind){
                 intake.setPower(-1);
                 uptoyou.setPower(-1);
             }
 
-            uptoyou.setPower(uptoyouSpeed);
-            shooter.setPower(shooterSpeed);
         }
     }
 }
