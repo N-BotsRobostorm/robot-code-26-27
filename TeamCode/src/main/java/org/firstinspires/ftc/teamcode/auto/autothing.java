@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "autothing (Blocks to Java)", preselectTeleOp = "mainEntryPoint")
+@Autonomous(name = "autothing", preselectTeleOp = "mainEntryPoint")
 public class autothing extends LinearOpMode {
 
   private DcMotor leftFront;
@@ -35,6 +35,9 @@ public class autothing extends LinearOpMode {
     rightspeed = -1;
     // Put initialization blocks here.
     waitForStart();
+
+    //moves away from wall and into box
+    // (the robot has to be a specific posistion to get park points)
     leftFront.setPower(speed);
     leftRear.setPower(speed);
     rightFront.setPower(rightspeed);
