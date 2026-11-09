@@ -1,6 +1,6 @@
-
 package org.firstinspires.ftc.teamcode;
 
+import static com.pedropathing.api.Paths.*;
 import com.pedropathing.api.Paths;
 
 import com.pedropathing.api.PoseFactory;
@@ -18,7 +18,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
-
 @Autonomous(name = "AutoPath", group = "Autonomous")
 public class pathingTest extends LinearOpMode {
 
@@ -26,18 +25,21 @@ public class pathingTest extends LinearOpMode {
 
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
-    private final Pose start = poseFactory.of(132.8154, 9.5986, 90);
+    private final Pose start = poseFactory.of(132.8154, 8.5986, 90);
     private final Pose path1 = poseFactory.of(113.6614, 38.3942, 0);
     private final Pose point2Start = poseFactory.of(113.6614, 38.3942, 0);
     private final Pose point2 = poseFactory.of(111.98, 97.85, 0);
     private final Pose point3 = poseFactory.of(81.1224, 132.6468, -48.4335);
+    private final Pose point4Start = poseFactory.of(81.1224, 132.6468, 0);
+    private final Pose point4 = poseFactory.of(46.6679, 136.6716, 0);
 
     // Autonomous routine
     public Command autoRoutine() {
         return sequential(
             follow(follower, path1()),
             follow(follower, path2()),
-            follow(follower, path3())
+            follow(follower, path3()),
+            follow(follower, path4())
         );
     }
 
@@ -45,7 +47,6 @@ public class pathingTest extends LinearOpMode {
     public void runOpMode() {
         Scheduler.reset();
         follower = Constants.create(hardwareMap);
-        assert follower != null;
         follower.setPose(start);
         follower.update();
 
@@ -79,5 +80,9 @@ public class pathingTest extends LinearOpMode {
 
     public Path path3() {
         return Paths.line(point2, point3).reverseTangent();
+    }
+
+    public Path path4() {
+        return Paths.line(point4Start, point4).linear(point4Start, point4);
     }
 }
