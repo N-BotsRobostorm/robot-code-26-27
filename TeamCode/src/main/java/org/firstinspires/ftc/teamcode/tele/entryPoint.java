@@ -13,23 +13,23 @@ import org.firstinspires.ftc.teamcode.util.DebouncedToggle;
 @TeleOp(name = "mainEntryPoint", group = "TeleOp")
 public class entryPoint extends LinearOpMode {
 
-    // ---- Tuning constants ----
+    //Tuning constants
     private static final long   BUTTON_DEBOUNCE_MS = 200;
-    private static final double TRIGGER_THRESHOLD  = 0.3;
+    private static final double TRIGGER_THRESHOLD = 0.3;
     private static final double SHOOTER_POWER_STEP = 0.005;
-    private static final double SLOW_SCALE         = 0.5;
-    private static final double PRECISION_SCALE    = 0.25;
+    private static final double SLOW_SCALE = 0.5;
+    private static final double PRECISION_SCALE = 0.25;
 
-    // ---- Subsystems ----
-    private final DriveTrain drive   = new DriveTrain();
-    private final Intake     intake  = new Intake();
-    private final Shooter    shooter = new Shooter();
-    private final Feeder     feeder  = new Feeder();
+    //Subsystems
+    private final DriveTrain drive = new DriveTrain();
+    private final Intake intake = new Intake();
+    private final Shooter shooter = new Shooter();
+    private final Feeder feeder = new Feeder();
 
-    // ---- Toggles ----
-    private final DebouncedToggle intakeToggle  = new DebouncedToggle(BUTTON_DEBOUNCE_MS);
+    // Toggles
+    private final DebouncedToggle intakeToggle = new DebouncedToggle(BUTTON_DEBOUNCE_MS);
     private final DebouncedToggle shooterToggle = new DebouncedToggle(BUTTON_DEBOUNCE_MS);
-    private final DebouncedToggle feederToggle  = new DebouncedToggle(BUTTON_DEBOUNCE_MS);
+    private final DebouncedToggle feederToggle = new DebouncedToggle(BUTTON_DEBOUNCE_MS);
 
     private final ElapsedTime shooterTuneTimer = new ElapsedTime();
 
@@ -52,9 +52,7 @@ public class entryPoint extends LinearOpMode {
         }
     }
 
-    // -------------------------------------------------
     // Setup
-    // -------------------------------------------------
 
     private void initHardware() {
         drive.init(hardwareMap);
@@ -63,9 +61,7 @@ public class entryPoint extends LinearOpMode {
         feeder.init(hardwareMap);
     }
 
-    // -------------------------------------------------
     // Gamepad 1: driving
-    // -------------------------------------------------
 
     private void handleDrive() {
         if (gamepad1.a) {
@@ -86,9 +82,7 @@ public class entryPoint extends LinearOpMode {
         return 1.0;
     }
 
-    // -------------------------------------------------
     // Gamepad 2: shooter power tuning (dpad)
-    // -------------------------------------------------
 
     private void handleShooterTuning() {
         boolean up   = gamepad2.dpad_up;
@@ -101,9 +95,7 @@ public class entryPoint extends LinearOpMode {
         }
     }
 
-    // -------------------------------------------------
     // Gamepad 2: intake / shooter / feeder
-    // -------------------------------------------------
 
     private void handleMechanisms() {
         boolean intakeOn  = intakeToggle.update(gamepad2.y);
@@ -122,9 +114,7 @@ public class entryPoint extends LinearOpMode {
         }
     }
 
-    // -------------------------------------------------
     // Telemetry
-    // -------------------------------------------------
 
     private void updateTelemetry() {
         drive.addTelemetry(telemetry);
