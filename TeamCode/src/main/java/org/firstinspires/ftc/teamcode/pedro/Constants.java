@@ -37,11 +37,12 @@ public class Constants {
     });
 
 
+
     public static PinpointConfig localizerConfig = new PinpointConfig(c -> {
         c.name.set("pinpoint");
         c.podType.set(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
-        c.xPodOffset.set(-1.935844271201787);
-        c.yPodOffset.set(-5.054050355445682);
+        c.xPodOffset.set(-3.6303653867225947);
+        c.yPodOffset.set(-3.9261612178772456);
         c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD);
         c.yPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD);
         c.globalDistanceUnit.set(DistanceUnit.INCH);
