@@ -1,24 +1,4 @@
-<<<<<<< HEAD
-#Sun Nov 15 20:33:52 CST 2026
-base.0=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\10\\classes.dex
-base.10=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.11=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
-base.12=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
-base.13=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
-base.2=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\11\\classes.dex
-base.3=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\14\\classes.dex
-base.4=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\7\\classes.dex
-base.5=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\8\\classes.dex
-base.6=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.7=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\11\\classes.dex
-base.8=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
-base.9=C\:\\Users\\babco\\Documents\\FTC Android Studio\\robot-code-26-27\\TeamCode\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\15\\classes.dex
-path.0=classes.dex
-path.1=10/classes.dex
-path.10=1/classes.dex
-=======
-#Mon Nov 16 01:30:29 GMT 2026
+#Mon Nov 16 02:56:00 GMT 2026
 base.0=/home/hikehy/Projects/ftc/robot-code-26-27/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/home/hikehy/Projects/ftc/robot-code-26-27/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/10/classes.dex
 base.10=/home/hikehy/Projects/ftc/robot-code-26-27/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/15/classes.dex
@@ -36,7 +16,6 @@ base.9=/home/hikehy/Projects/ftc/robot-code-26-27/TeamCode/build/intermediates/d
 path.0=classes.dex
 path.1=10/classes.dex
 path.10=15/classes.dex
->>>>>>> 94b52c4 (fixed the pathing)
 path.11=9/classes.dex
 path.12=classes2.dex
 path.13=classes3.dex
@@ -45,15 +24,9 @@ path.3=14/classes.dex
 path.4=7/classes.dex
 path.5=8/classes.dex
 path.6=0/classes.dex
-<<<<<<< HEAD
-path.7=11/classes.dex
-path.8=13/classes.dex
-path.9=15/classes.dex
-=======
 path.7=1/classes.dex
 path.8=11/classes.dex
 path.9=13/classes.dex
->>>>>>> 94b52c4 (fixed the pathing)
 renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.10=classes11.dex

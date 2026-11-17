@@ -27,8 +27,8 @@ public class pathingTest extends LinearOpMode {
 
     private final Pose start = poseFactory.of(56, 8, 90);
     private final Pose path1 = poseFactory.of(56, 36, 90);
-    private final Pose point2 = poseFactory.of(9.8861, 46.5656, 167.0951);
-    private final Pose point3 = poseFactory.of(56.0153, 13.8691, 144.6709);
+    private final Pose point2 = poseFactory.of(13.846, 45.9056, 166.7762);
+    private final Pose point3 = poseFactory.of(56.0153, 13.8691, 142.7756);
     private final Pose point4 = poseFactory.of(22.3365, 47.0088, 135.4623);
     private final Pose point5 = poseFactory.of(9.2865, 97.1202, 104.5967);
     private final Pose point6 = poseFactory.of(9.2837, 97.1493, 95.44);

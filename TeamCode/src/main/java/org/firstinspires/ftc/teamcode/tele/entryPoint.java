@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystems.Feeder;
+import org.firstinspires.ftc.teamcode.subsystems.FlowerBar;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.util.DebouncedToggle;
@@ -26,10 +27,14 @@ public class entryPoint extends LinearOpMode {
     private final Shooter shooter = new Shooter();
     private final Feeder feeder = new Feeder();
 
+    private final FlowerBar flowerbar = new FlowerBar();
+
     // Toggles
     private final DebouncedToggle intakeToggle = new DebouncedToggle(BUTTON_DEBOUNCE_MS);
     private final DebouncedToggle shooterToggle = new DebouncedToggle(BUTTON_DEBOUNCE_MS);
     private final DebouncedToggle feederToggle = new DebouncedToggle(BUTTON_DEBOUNCE_MS);
+
+    private final DebouncedToggle flowerbarToggle = new DebouncedToggle(BUTTON_DEBOUNCE_MS);
 
     private final ElapsedTime shooterTuneTimer = new ElapsedTime();
 
@@ -59,6 +64,7 @@ public class entryPoint extends LinearOpMode {
         intake.init(hardwareMap);
         shooter.init(hardwareMap);
         feeder.init(hardwareMap);
+        flowerbar.init(hardwareMap);
     }
 
     // Gamepad 1: driving
@@ -101,8 +107,10 @@ public class entryPoint extends LinearOpMode {
         boolean intakeOn  = intakeToggle.update(gamepad2.y);
         boolean shooterOn = shooterToggle.update(gamepad2.right_trigger >= TRIGGER_THRESHOLD);
         boolean feederOn  = feederToggle.update(gamepad2.left_trigger >= TRIGGER_THRESHOLD);
+        boolean flowerbarOn = flowerbarToggle.update(gamepad1.left_trigger >= TRIGGER_THRESHOLD);
 
         shooter.run(shooterOn);
+        flowerbar.run(flowerbarOn);
 
         // Eject overrides intake + feeder while held
         if (gamepad2.b) {
