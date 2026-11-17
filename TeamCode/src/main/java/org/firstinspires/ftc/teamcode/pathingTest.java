@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+
 import static com.pedropathing.api.Paths.*;
 import com.pedropathing.api.Paths;
 
@@ -17,36 +18,61 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.pedro.Constants;
+import org.firstinspires.ftc.teamcode.subsystems.Feeder;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
-@Autonomous(name = "AutoPath", group = "Autonomous")
+@Autonomous(name = "AutoPath", group = "Autonomous", preselectTeleOp = "mainEntryPonit")
 public class pathingTest extends LinearOpMode {
 
     private Follower follower;
-
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
-    private final Pose start = poseFactory.of(56, 8, 90);
-    private final Pose path1 = poseFactory.of(56, 36, 90);
-    private final Pose point2 = poseFactory.of(13.846, 45.9056, 166.7762);
-    private final Pose point3 = poseFactory.of(56.0153, 13.8691, 142.7756);
-    private final Pose point4 = poseFactory.of(22.3365, 47.0088, 135.4623);
-    private final Pose point5 = poseFactory.of(9.2865, 97.1202, 104.5967);
-    private final Pose point6 = poseFactory.of(9.2837, 97.1493, 95.44);
+    private final Pose start = poseFactory.of(59.5199, 9.32, 90);
+    private final Pose point1 = poseFactory.of(59.5438, 23.3543, -90);
+    private final Pose point2 = poseFactory.of(15.2171, 90.6596, 90.7994);
+    private final Pose point2Control1 = poseFactory.of(15.8011, 48.8034, 0);
+
+
+    //define modules
+
+    private final Shooter shooter = new Shooter();
+    private final Intake intake = new Intake();
+    private final Feeder uptoyou = new Feeder();
+
+
+
 
     // Autonomous routine
     public Command autoRoutine() {
         return sequential(
-            follow(follower, path1()),
-            follow(follower, path2()),
-            follow(follower, path3()),
-            follow(follower, path4()),
-            follow(follower, path5()),
-            follow(follower, path6())
+                instant(() -> shooter.run(true)),
+                waitMs(5000),
+                instant(() -> {
+                    intake.run(true);
+                    uptoyou.run(true);
+                }),
+                waitMs(15000),
+                instant(() -> {
+                    shooter.run(false);
+                    intake.run(false);
+                    uptoyou.run(false);
+                }),
+                follow(follower, path1()),
+                follow(follower, path2())
+
+
         );
     }
 
     @Override
     public void runOpMode() {
+
+        //init hardware
+        shooter.init(hardwareMap);
+        uptoyou.init(hardwareMap);
+        intake.init(hardwareMap);
+
         Scheduler.reset();
         follower = Constants.create(hardwareMap);
         follower.setPose(start);
@@ -73,26 +99,10 @@ public class pathingTest extends LinearOpMode {
     }
 
     public Path path1() {
-        return Paths.line(start, path1).tangent();
+        return Paths.line(start, point1).constant(point1);
     }
 
     public Path path2() {
-        return Paths.line(path1, point2).tangent();
-    }
-
-    public Path path3() {
-        return Paths.line(point2, point3).reverseTangent();
-    }
-
-    public Path path4() {
-        return Paths.line(point3, point4).tangent();
-    }
-
-    public Path path5() {
-        return Paths.line(point4, point5).tangent();
-    }
-
-    public Path path6() {
-        return Paths.line(point5, point6).tangent();
+        return Paths.curve(point1, point2Control1, point2).tangent();
     }
 }
