@@ -49,7 +49,7 @@ public class pathingTest extends LinearOpMode {
     public Command autoRoutine() {
         return sequential(
                 instant(() -> shooter.run(true)),
-                waitMs(5000),
+                waitMs(2500),
                 instant(() -> {
                     intake.run(true);
                     uptoyou.run(true);
