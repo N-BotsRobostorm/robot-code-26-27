@@ -28,10 +28,12 @@ public class pathingTest extends LinearOpMode {
     private Follower follower;
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
-    private final Pose start = poseFactory.of(59.5199, 9.32, 90);
-    private final Pose point1 = poseFactory.of(59.5438, 23.3543, -90);
+    private final Pose start = poseFactory.of(59.5199, 11.5199, -90);
+    private final Pose point1 = poseFactory.of(59.5438, 23.3543, 148);
     private final Pose point2 = poseFactory.of(15.2171, 90.6596, 90.7994);
     private final Pose point2Control1 = poseFactory.of(15.8011, 48.8034, 0);
+
+
 
 
     //define modules
@@ -98,8 +100,9 @@ public class pathingTest extends LinearOpMode {
         }
     }
 
+
     public Path path1() {
-        return Paths.line(start, point1).constant(point1);
+        return Paths.line(start, point1).linear(start, point1);
     }
 
     public Path path2() {
