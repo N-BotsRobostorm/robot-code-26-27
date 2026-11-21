@@ -116,6 +116,7 @@ public class entryPoint extends LinearOpMode {
         if (gamepad2.b) {
             intake.reverse();
             feeder.reverse();
+            shooter.reverse();
         } else {
             intake.run(intakeOn);
             feeder.run(feederOn);

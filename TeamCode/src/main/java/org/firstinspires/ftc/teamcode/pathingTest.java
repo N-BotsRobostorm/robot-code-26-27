@@ -22,15 +22,15 @@ import org.firstinspires.ftc.teamcode.subsystems.Feeder;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
-@Autonomous(name = "AutoPath", group = "Autonomous", preselectTeleOp = "mainEntryPonit")
+@Autonomous(name = "AutoPath", group = "Autonomous", preselectTeleOp = "mainEntryPoint")
 public class pathingTest extends LinearOpMode {
 
     private Follower follower;
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
-    private final Pose start = poseFactory.of(59.5199, 11.5199, -90);
+    private final Pose start = poseFactory.of(61.0599, 9.1, -90);
     private final Pose point1 = poseFactory.of(59.5438, 23.3543, 148);
-    private final Pose point2 = poseFactory.of(15.2171, 90.6596, 90.7994);
+    private final Pose point2 = poseFactory.of(11.2572, 92.6395, 95.918);
     private final Pose point2Control1 = poseFactory.of(15.8011, 48.8034, 0);
 
 
@@ -48,12 +48,15 @@ public class pathingTest extends LinearOpMode {
     // Autonomous routine
     public Command autoRoutine() {
         return sequential(
-                instant(() -> shooter.run(true)),
-                waitMs(2500),
                 instant(() -> {
-                    intake.run(true);
-                    uptoyou.run(true);
+                    shooter.setPower(0.575);
+                    shooter.run(true);
                 }),
+                waitMs(1500),
+
+                instant(() -> {uptoyou.run(true);}),
+                waitMs(900),
+                instant(() -> {intake.run(true);}),
                 waitMs(15000),
                 instant(() -> {
                     shooter.run(false);
@@ -61,8 +64,9 @@ public class pathingTest extends LinearOpMode {
                     uptoyou.run(false);
                 }),
                 follow(follower, path1()),
-                follow(follower, path2())
+                follow(follower, path2()),
 
+                instant(() -> follower.stop())
 
         );
     }

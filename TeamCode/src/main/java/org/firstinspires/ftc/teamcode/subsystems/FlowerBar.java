@@ -8,5 +8,5 @@ public class FlowerBar {
 
     public void init(HardwareMap hw) { servo = hw.get(Servo.class, "flowerBar");}
 
-    public void run(boolean active){servo.setPosition(active ? 1 : 0);}
+    public void run(boolean active){servo.setPosition(active ? 1 : 0.05);}
 }
