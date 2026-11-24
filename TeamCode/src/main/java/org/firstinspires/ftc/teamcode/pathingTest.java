@@ -28,13 +28,20 @@ public class pathingTest extends LinearOpMode {
     private Follower follower;
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
-    private final Pose start = poseFactory.of(61.0599, 9.1, -90);
-    private final Pose point1 = poseFactory.of(59.5438, 23.3543, 148);
-    private final Pose point2 = poseFactory.of(11.2572, 92.6395, 95.918);
-    private final Pose point2Control1 = poseFactory.of(15.8011, 48.8034, 0);
 
 
 
+    private final Pose start = poseFactory.of(61.2799, 10.4199, 270);
+    private final Pose point1 = poseFactory.of(61.0837, 21.5943, 134);
+    private final Pose point2 = poseFactory.of(13.9074, 47.1533, -178.6421);
+    private final Pose point2Control1 = poseFactory.of(35.9157, 47.675, 0);
+    private final Pose point3Start = poseFactory.of(13.9074, 47.1533, 178);
+    private final Pose point3 = poseFactory.of(33.0353, 107.8995, 0);
+    private final Pose point4 = poseFactory.of(60.0373, 133.3625, 89.9594);
+    private final Pose point4Control1 = poseFactory.of(60.018, 106.1734, 0);
+    private final Pose point5Start = poseFactory.of(60.0373, 133.3625, 90);
+    private final Pose point5 = poseFactory.of(12.3838, 120.7948, 0);
+    private final Pose point5Control1 = poseFactory.of(44.529, 91.3071, 0);
 
     //define modules
 
@@ -48,23 +55,11 @@ public class pathingTest extends LinearOpMode {
     // Autonomous routine
     public Command autoRoutine() {
         return sequential(
-                instant(() -> {
-                    shooter.setPower(0.575);
-                    shooter.run(true);
-                }),
-                waitMs(1500),
-
-                instant(() -> {uptoyou.run(true);}),
-                waitMs(900),
-                instant(() -> {intake.run(true);}),
-                waitMs(15000),
-                instant(() -> {
-                    shooter.run(false);
-                    intake.run(false);
-                    uptoyou.run(false);
-                }),
                 follow(follower, path1()),
                 follow(follower, path2()),
+                follow(follower, path3()),
+                follow(follower, path4()),
+                follow(follower, path5()),
 
                 instant(() -> follower.stop())
 
@@ -105,11 +100,24 @@ public class pathingTest extends LinearOpMode {
     }
 
 
+
     public Path path1() {
         return Paths.line(start, point1).linear(start, point1);
     }
 
     public Path path2() {
         return Paths.curve(point1, point2Control1, point2).tangent();
+    }
+
+    public Path path3() {
+        return Paths.line(point3Start, point3).linear(point3Start, point3);
+    }
+
+    public Path path4() {
+        return Paths.curve(point3, point4Control1, point4).tangent();
+    }
+
+    public Path path5() {
+        return Paths.curve(point5Start, point5Control1, point5).linear(point5Start, point5);
     }
 }

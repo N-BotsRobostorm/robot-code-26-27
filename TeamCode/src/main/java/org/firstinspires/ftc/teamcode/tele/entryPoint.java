@@ -128,6 +128,7 @@ public class entryPoint extends LinearOpMode {
     private void updateTelemetry() {
         drive.addTelemetry(telemetry);
         telemetry.addData("Shooter Power: ", shooter.getPowerPercent());
+        telemetry.addData("current Velocity: ", shooter.printVelocity());
         telemetry.update();
     }
 }

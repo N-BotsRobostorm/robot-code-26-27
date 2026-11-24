@@ -1,23 +1,32 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Shooter {
 
-    private static final double DEFAULT_POWER = 0.575;
-    private static final double MIN_POWER = 0.0;
-    private static final double MAX_POWER = 1.0;
+    private static final double MAX_VELOCITY = 2380;
 
-    private DcMotor motor;
+    private static final double DEFAULT_POWER = 0.575;
+    private static final double MIN_POWER = -1;
+    private static final double MAX_POWER = 1;
+
+    private DcMotorEx motor;
+
     private double power = DEFAULT_POWER;
 
     public void init(HardwareMap hw) {
-        motor = hw.get(DcMotor.class, "shooter");
+        motor = hw.get(DcMotorEx.class, "shooter");
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void run(boolean active) {
-        motor.setPower(active ? power : 0);
+        if(active) {
+            motor.setVelocity(power * MAX_VELOCITY);
+        } else {
+            motor.setPower(0);
+        }
     }
 
     public void reverse(){ motor.setPower(-1); }
@@ -33,5 +42,9 @@ public class Shooter {
 
     public double getPowerPercent() {
         return power * 100;
+    }
+
+    public double printVelocity() {
+        return motor.getVelocity();
     }
 }
